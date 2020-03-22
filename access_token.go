@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/fromiuan/dingtalk/lib"
+	"github.com/polaris-repo/dingtalk/lib"
 )
 
 var (
@@ -22,8 +22,8 @@ type ResAccessToken struct {
 
 //GetAccessToken 获取access_token
 func (c *Client) GetAccessToken() (accessToken string, err error) {
-	c.Tlock.Lock()
-	defer c.Tlock.Unlock()
+	c.mutex.Lock()
+	defer c.mutex.Unlock()
 
 	accessTokenCacheKey := fmt.Sprintf("access_token_%s", c.AppKey)
 	val := c.Cache.Get(accessTokenCacheKey)
@@ -44,7 +44,15 @@ func (c *Client) GetAccessToken() (accessToken string, err error) {
 
 //GetAccessTokenFromServer 强制从服务器获取token
 func (c *Client) GetAccessTokenFromServer() (resAccessToken ResAccessToken, err error) {
-	url := fmt.Sprintf("%s?appkey=%s&appsecret=%s", GetToken, c.AppKey, c.AppSecret)
+	url := ""
+	if c.CorpId != "" && c.CorpSecret != "" {
+		url = fmt.Sprintf("%s?corpid=%s&corpsecret=%s", GetToken, c.CorpId, c.CorpSecret)
+	}
+
+	if c.AppKey != "" && c.AppSecret != "" {
+		url = fmt.Sprintf("%s?appkey=%s&appsecret=%s", GetToken, c.AppKey, c.AppSecret)
+	}
+
 	var body []byte
 	body, err = lib.Get(url).AsBytes()
 	if err != nil {

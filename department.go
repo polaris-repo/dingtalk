@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/fromiuan/dingtalk/lib"
+	"github.com/polaris-repo/dingtalk/lib"
 )
 
 // 创建部门

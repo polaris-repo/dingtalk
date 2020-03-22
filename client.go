@@ -3,23 +3,25 @@ package dingtalk
 import (
 	"sync"
 
-	"github.com/fromiuan/dingtalk/lib/cache"
+	"github.com/polaris-repo/dingtalk/lib/cache"
 )
 
 type Client struct {
-	AppKey    string // 企业内部应用appKey
-	AppSecret string // 企业内部应用appSecret
-	Debug     bool
+	CorpId     string //企业ID
+	CorpSecret string //企业Secret
+	AppKey     string // 企业内部应用appKey
+	AppSecret  string // 企业内部应用appSecret
+	Debug      bool
 
 	Cache cache.Cache
-	Tlock *sync.RWMutex
+	mutex *sync.RWMutex
 }
 
 func NewClient(appkey, appsecret string) *Client {
 	cli := &Client{
 		AppKey:    appkey,
 		AppSecret: appsecret,
-		Tlock:     new(sync.RWMutex),
+		mutex:     new(sync.RWMutex),
 	}
 	defaultCacheCfg := &cache.MemoryOpts{Interval: 1 * 60 * 60}
 	cacheAdapter, err := cache.NewCache("memory", defaultCacheCfg)

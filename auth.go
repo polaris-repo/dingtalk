@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/fromiuan/dingtalk/lib"
+	"github.com/polaris-repo/dingtalk/lib"
 )
 
 type AuthClient struct {

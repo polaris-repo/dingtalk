@@ -17,7 +17,7 @@
 ## Install
 
 ```bash
-go get github.com/fromiuan/dingtalk
+go get github.com/polaris-repo/dingtalk
 ```
 
 ## Usage
@@ -28,7 +28,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/fromiuan/dingtalk"
+	"github.com/polaris-repo/dingtalk"
 )
 
 var (
