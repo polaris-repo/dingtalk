@@ -17,11 +17,13 @@ type Client struct {
 	mutex *sync.RWMutex
 }
 
-func NewClient(appkey, appsecret string) *Client {
+func NewClient(corpId string, corpSecret string, appkey string, appsecret string) *Client {
 	cli := &Client{
-		AppKey:    appkey,
-		AppSecret: appsecret,
-		mutex:     new(sync.RWMutex),
+		CorpId:     corpId,
+		CorpSecret: corpSecret,
+		AppKey:     appkey,
+		AppSecret:  appsecret,
+		mutex:      new(sync.RWMutex),
 	}
 	defaultCacheCfg := &cache.MemoryOpts{Interval: 1 * 60 * 60}
 	cacheAdapter, err := cache.NewCache("memory", defaultCacheCfg)
