@@ -98,7 +98,7 @@ func (c *Client) GetUserInfoByIn(code string) (u *UserinfoByInternal, err error)
 		return u, err
 	}
 
-	url := fmt.Sprintf("%s?access_token=%s", GetUserInfo, accessToken)
+	url := fmt.Sprintf("%s?access_token=%s&code=%s", GetUserInfo, accessToken, code)
 	if c.Debug {
 		log.Println("url:", url)
 	}
